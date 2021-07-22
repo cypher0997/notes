@@ -14,7 +14,7 @@ class TestViews:
         :param client: handles request
         :return: true or false
         """
-        url = reverse('register_method')
+        url = reverse('uer_register_login:register_method')
         data = {
             "username": "SUMAN",
             "first_name": "suman",
@@ -34,7 +34,7 @@ class TestViews:
         user = CustomUser.objects.create(username='BHASKAR', first_name='bhaskar', email='abc@gmail.com',
                                          password='55566622', verified=True)
         user.save()
-        url = reverse('login_method')
+        url = reverse('uer_register_login:login_method')
         data = {
             "username": "BHASKAR",
             "password": "55566622"

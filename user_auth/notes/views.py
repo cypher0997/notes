@@ -7,6 +7,7 @@ from notes.serializer import NotesSer, NotesUpdateSer
 from rest_framework.response import Response
 from uer_register_login.models import CustomUser
 from uer_register_login.utils import token_decoder
+import redis
 
 
 class CreateNotes(APIView):
@@ -25,7 +26,10 @@ class CreateNotes(APIView):
             data = NewNotes.objects.filter(user=usr_id)
             serializer = NotesSer(data=data, many=True)
             serializer.is_valid()
-            return Response({"data": {"note-list": serializer.data}}, status=200)
+            r = redis.Redis(host='localhost', port=6379, db=0)
+            return Response({"data": {"note-list": serializer.data},
+                             "username": r.get("usr_name"),
+                             "user_id": r.get("usr_id")}, status=200)
         except Exception as e:
             return Response({"message": e.args})
 
@@ -52,10 +56,10 @@ class CreateNotes(APIView):
         except ValueError as e:
             return Response({"message": "INVALID INPUT"}, status=400)
         except Exception as e:
-            return Response({"message": e.args})
+            return Response({"message": str(e)})
 
     @token_decoder
-    def put(self, request, pk):
+    def put(self, request):
         """
         this method updates specific notes of corresponding user
         :param request: http request to made to this api
@@ -65,8 +69,9 @@ class CreateNotes(APIView):
         try:
             # if request.data.get("title") or request.data.get("discription") is None:
             #     raise ValueError
-            input_id = pk
+            input_id = request.data.get("id")
             user = NewNotes.objects.get(pk=input_id)
+            print(request.data)
             serializer = NotesUpdateSer(user, data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -78,7 +83,7 @@ class CreateNotes(APIView):
             return Response({"message": e.args})
 
     @token_decoder
-    def delete(self, request, pk):
+    def delete(self, request):
         """
         this method delete's specific notes of corresponding user
         :param request: http request to made to this api
@@ -86,7 +91,7 @@ class CreateNotes(APIView):
         :param pk: primary representing user
         """
         try:
-            input_id = pk
+            input_id = request.data.get("id")
             user = NewNotes.objects.get(pk=input_id)
             user.delete()
             return Response({"message": "NOTE SUCCESSFULLY DELETED"})

@@ -19,8 +19,10 @@
       <change beforePath="$PROJECT_DIR$/uer_register_login/serialize.py" beforeDir="false" afterPath="$PROJECT_DIR$/uer_register_login/serialize.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uer_register_login/tests/test_user_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/uer_register_login/tests/test_user_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uer_register_login/tests/test_user_url.py" beforeDir="false" afterPath="$PROJECT_DIR$/uer_register_login/tests/test_user_url.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uer_register_login/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/uer_register_login/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uer_register_login/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/uer_register_login/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uer_register_login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/uer_register_login/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_auth/.env" beforeDir="false" afterPath="$PROJECT_DIR$/user_auth/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_auth/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_auth/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user_auth/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user_auth/urls.py" afterDir="false" />
     </list>
@@ -50,6 +52,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../cover3/demo_drf" />
@@ -115,6 +118,10 @@
       <workItem from="1626510796800" duration="8278000" />
       <workItem from="1626622448360" duration="147000" />
       <workItem from="1626675066897" duration="9947000" />
+      <workItem from="1626764734710" duration="14498000" />
+      <workItem from="1626837938295" duration="3610000" />
+      <workItem from="1626849729593" duration="9757000" />
+      <workItem from="1626930840928" duration="2646000" />
     </task>
     <servers />
   </component>
@@ -138,13 +145,13 @@
       <screen x="0" y="0" width="1360" height="768" />
     </state>
     <state x="181" y="26" key="SettingsEditor/0.0.1360.768@0.0.1360.768" timestamp="1626509539816" />
-    <state x="376" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1626675198079">
+    <state x="376" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1626930839072">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
-    <state x="376" y="208" key="com.intellij.ide.util.TipDialog/0.0.1360.768@0.0.1360.768" timestamp="1626675198079" />
-    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1626512709861">
+    <state x="376" y="208" key="com.intellij.ide.util.TipDialog/0.0.1360.768@0.0.1360.768" timestamp="1626930839072" />
+    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1626771946328">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
-    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1626512709861" />
+    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1626771946328" />
   </component>
 </project>

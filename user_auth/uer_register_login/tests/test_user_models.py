@@ -9,5 +9,5 @@ class TestModels:
         this method is used to test the models in user register and login api
         :return: true or false
         """
-        data = CustomUser.objects.filter(pk=1)
+        data = CustomUser.objects.get(pk=1)
         assert isinstance(data, CustomUser) == True
