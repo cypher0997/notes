@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84784618-bcc2-41df-a44c-3ac8485b8af4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/notes/admin.py" afterDir="false" />
@@ -121,7 +122,9 @@
       <workItem from="1626764734710" duration="14498000" />
       <workItem from="1626837938295" duration="3610000" />
       <workItem from="1626849729593" duration="9757000" />
-      <workItem from="1626930840928" duration="2646000" />
+      <workItem from="1626930840928" duration="23177000" />
+      <workItem from="1627021008105" duration="12860000" />
+      <workItem from="1627113856155" duration="130000" />
     </task>
     <servers />
   </component>
@@ -145,13 +148,13 @@
       <screen x="0" y="0" width="1360" height="768" />
     </state>
     <state x="181" y="26" key="SettingsEditor/0.0.1360.768@0.0.1360.768" timestamp="1626509539816" />
-    <state x="376" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1626930839072">
+    <state x="376" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1627113866512">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
-    <state x="376" y="208" key="com.intellij.ide.util.TipDialog/0.0.1360.768@0.0.1360.768" timestamp="1626930839072" />
-    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1626771946328">
+    <state x="376" y="208" key="com.intellij.ide.util.TipDialog/0.0.1360.768@0.0.1360.768" timestamp="1627113866512" />
+    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1626946421560">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
-    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1626771946328" />
+    <state x="343" y="89" width="672" height="678" key="search.everywhere.popup/0.0.1360.768@0.0.1360.768" timestamp="1626946421560" />
   </component>
 </project>

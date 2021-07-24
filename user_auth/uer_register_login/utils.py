@@ -39,12 +39,12 @@ def token_decoder(function):
         :param request: the http request
         :return: function name
         """
-        connection_2 = redis.ConnectionPool(host='localhost', port=6379, db=0)
-        r = redis.Redis(connection_pool=connection_2)
         if 'HTTP_AUTHORIZATION' not in request.META:
             resp = Response({'message': "token not found"})
             resp.status_code = 400
             return resp
+        connection_2 = redis.ConnectionPool(host='localhost', port=6379, db=0)
+        r = redis.Redis(connection_pool=connection_2)
         usr_details = jwt.decode(request.META.get('HTTP_AUTHORIZATION'), key=KEY, algorithms="HS256")
         if r.exists(usr_details.get("usr_id")) is None:
             return Response({"message": "USER IS NOT LOGGED IN , LOGIN AGAIN"}, status=403)
@@ -68,7 +68,8 @@ def register_encode_token(usr_name):
 def login_encode_token(temp):
     try:
         token = jwt.encode({"usr_id": CustomUser.objects.get(username=temp.get("username")).id,
-                            "usr_name": CustomUser.objects.get(username=temp.get("username")).username}
+                            "usr_name": CustomUser.objects.get(username=temp.get("username")).username,
+                            }
                            , KEY, algorithm="HS256")
         return token
     except Exception:

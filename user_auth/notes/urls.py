@@ -3,5 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.CreateNotes.as_view(), name='notes')
+    path('', views.CreateNotes.as_view(), name='notes'),
+    path('label/', views.LabelView.as_view(), name='notes')
 ]

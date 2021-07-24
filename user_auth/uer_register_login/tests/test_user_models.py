@@ -1,5 +1,6 @@
 from uer_register_login.models import CustomUser
 import pytest
+from mixer.backend.django import mixer
 
 
 @pytest.mark.django_db
@@ -9,5 +10,5 @@ class TestModels:
         this method is used to test the models in user register and login api
         :return: true or false
         """
-        data = CustomUser.objects.get(pk=1)
-        assert isinstance(data, CustomUser) == True
+        usr_instance = mixer.blend(CustomUser, id=1)
+        assert isinstance(usr_instance, CustomUser) == True
