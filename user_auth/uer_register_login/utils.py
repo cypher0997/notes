@@ -3,6 +3,8 @@ from datetime import timedelta
 from email.mime.text import MIMEText
 from django.http import QueryDict
 import jwt
+from jwt import ExpiredSignatureError
+
 from uer_register_login.models import CustomUser
 from user_auth import settings
 from rest_framework.response import Response
@@ -61,6 +63,8 @@ def register_encode_token(usr_name):
     try:
         token = jwt.encode({"username": usr_name}, KEY, algorithm="HS256")
         return token
+    except ExpiredSignatureError as e:
+        return Response({"message": "Token Not Found or expired"}, status=404)
     except Exception as e:
         return "something went wrong"
 
@@ -72,5 +76,7 @@ def login_encode_token(temp):
                             }
                            , KEY, algorithm="HS256")
         return token
+    except ExpiredSignatureError as e:
+        return Response({"message": "Token Not Found or expired"}, status=404)
     except Exception:
         return "something went wrong"

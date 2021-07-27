@@ -56,7 +56,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../cover3/demo_drf" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -125,6 +125,11 @@
       <workItem from="1626930840928" duration="23177000" />
       <workItem from="1627021008105" duration="12860000" />
       <workItem from="1627113856155" duration="130000" />
+      <workItem from="1627115926656" duration="11252000" />
+      <workItem from="1627282918428" duration="1373000" />
+      <workItem from="1627285383994" duration="13815000" />
+      <workItem from="1627378712802" duration="96000" />
+      <workItem from="1627397063565" duration="5829000" />
     </task>
     <servers />
   </component>
@@ -148,10 +153,10 @@
       <screen x="0" y="0" width="1360" height="768" />
     </state>
     <state x="181" y="26" key="SettingsEditor/0.0.1360.768@0.0.1360.768" timestamp="1626509539816" />
-    <state x="376" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1627113866512">
+    <state x="376" y="208" key="com.intellij.ide.util.TipDialog" timestamp="1627397876448">
       <screen x="0" y="0" width="1360" height="768" />
     </state>
-    <state x="376" y="208" key="com.intellij.ide.util.TipDialog/0.0.1360.768@0.0.1360.768" timestamp="1627113866512" />
+    <state x="376" y="208" key="com.intellij.ide.util.TipDialog/0.0.1360.768@0.0.1360.768" timestamp="1627397876448" />
     <state x="343" y="89" width="672" height="678" key="search.everywhere.popup" timestamp="1626946421560">
       <screen x="0" y="0" width="1360" height="768" />
     </state>

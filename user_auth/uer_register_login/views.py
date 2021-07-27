@@ -5,8 +5,10 @@ from rest_framework.response import Response
 from .serialize import RegisterUserSer, LoginUserSerializer
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 import jwt
+from jwt.exceptions import ExpiredSignatureError
 from . import utils
 import redis
+from redis.exceptions import ConnectionError
 
 
 class LoginView(APIView):
@@ -36,6 +38,10 @@ class LoginView(APIView):
                 raise ObjectDoesNotExist
         except ObjectDoesNotExist as e:
             return Response({"message": "USER NOT FOUND"}, status=404)
+        except ConnectionError as e:
+            return Response({"message": "Redis Connection Error"}, status=502)
+        except ExpiredSignatureError as e:
+            return Response({"message": "Token Not Found or expired"}, status=404)
         except Exception as e:
             return Response({"message": "something went wrong"}, status=400)
 
@@ -59,9 +65,13 @@ class RegisterView(APIView):
                 token = utils.register_encode_token(request.data.get("username"))
                 utils.send_email(token)
                 return Response({"message": "VERIFY YOURSELF, CHECK EMAIL"}, status=200)
-            return Response({"message": "USERNAME VALIDATION FAILS"}, status=400)
+            return Response({"message": "NOT VALID INPUT"}, status=400)
         except ValidationError as e:
             return Response(e.message)
+        except ExpiredSignatureError as e:
+            return Response({"message": "Token Not Found or expired"}, status=404)
+        except Exception as e:
+            return Response({"message": "something went wrong"}, status=400)
 
 
 class VerifyView(APIView):
