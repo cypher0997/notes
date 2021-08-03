@@ -1,7 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render
 from django.core.exceptions import ValidationError
-# Create your views here.
+from drf_yasg.utils import swagger_auto_schema
 from jwt import ExpiredSignatureError
 from rest_framework.views import APIView
 from notes.models import NewNotes, Label, CollaboratorContent
@@ -9,12 +8,14 @@ from notes.serializer import NotesSer, NotesUpdateSer, LabelSer, NotesGetSer, Co
 from rest_framework.response import Response
 from uer_register_login.models import CustomUser
 from uer_register_login.utils import token_decoder
+from drf_yasg import openapi
 
 
 class CreateNotes(APIView):
-
     # this class represent different views that are broadly different operations performed vis this api
 
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
     @token_decoder
     def get(self, request):
         """
@@ -41,6 +42,15 @@ class CreateNotes(APIView):
         except Exception as e:
             return Response({"message": e.args})
 
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'title': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
+            'discription': openapi.Schema(type=openapi.TYPE_STRING, description="discription of Note"),
+            'label': openapi.Schema(type=openapi.TYPE_STRING, description="label of Note"),
+        }))
     @token_decoder
     def post(self, request):
         """
@@ -76,6 +86,15 @@ class CreateNotes(APIView):
         except Exception as e:
             return Response({"message": str(e)})
 
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'id': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
+            'title': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
+            'discription': openapi.Schema(type=openapi.TYPE_STRING, description="discription of Note"),
+        }))
     def put(self, request):
         """
         this method updates specific notes of corresponding user
@@ -88,7 +107,7 @@ class CreateNotes(APIView):
             serializer = NotesUpdateSer(note, data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response({"message": "USER UPDATED SUCCESSSFULLY"})
+                return Response({"message": "USER UPDATED SUCCESSFULLY"})
             return Response(serializer.errors)
         except ObjectDoesNotExist as e:
             return Response({"message": "USER NOT FOUND"}, status=404)
@@ -97,6 +116,13 @@ class CreateNotes(APIView):
         except Exception as e:
             return Response({"message": str(e)})
 
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'id': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
+        }))
     def delete(self, request):
         """
         this method delete's specific notes of corresponding user
@@ -117,6 +143,11 @@ class CreateNotes(APIView):
 
 class LabelView(APIView):
 
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'label': openapi.Schema(type=openapi.TYPE_STRING, description="label"),
+        }))
     def post(self, request):
         """
         post method for creating label
@@ -154,6 +185,12 @@ class LabelView(APIView):
 
 class NoteCollaboratorView(APIView):
 
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'note_id': openapi.Schema(type=openapi.TYPE_STRING, description="id of note"),
+            'username': openapi.Schema(type=openapi.TYPE_STRING, description="USERNAME to  be collaborated"),
+        }))
     def post(self, request):
         """
         post method for creating collaborator
@@ -178,6 +215,14 @@ class NoteCollaboratorView(APIView):
 
 class CollaboratedContentView(APIView):
 
+    @swagger_auto_schema(manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'note_id': openapi.Schema(type=openapi.TYPE_STRING, description="id of note"),
+            'content': openapi.Schema(type=openapi.TYPE_STRING, description="content of collaborator"),
+        }))
     @token_decoder
     def put(self, request):
         """

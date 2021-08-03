@@ -1,4 +1,7 @@
 from datetime import timedelta
+
+from drf_yasg.utils import swagger_auto_schema
+
 from .models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -9,14 +12,21 @@ from jwt.exceptions import ExpiredSignatureError
 from . import utils
 import redis
 from redis.exceptions import ConnectionError
+from drf_yasg import openapi
 
 
 class LoginView(APIView):
     # class representing view for user registration
 
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'username': openapi.Schema(type=openapi.TYPE_STRING, description="username of user"),
+            'password': openapi.Schema(type=openapi.TYPE_STRING, description="password of user"),
+        }))
     def post(self, request):
         """
-        this method is used to register user or save user in database
+        this method login user to system
         :param request: http request to made to this api
         :return: it returns response to request that is made:
         """
@@ -49,9 +59,17 @@ class LoginView(APIView):
 class RegisterView(APIView):
     # class representing view for user login
 
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            'username': openapi.Schema(type=openapi.TYPE_STRING, description="username of user"),
+            'first_name': openapi.Schema(type=openapi.TYPE_STRING, description="first_name of user"),
+            'email': openapi.Schema(type=openapi.TYPE_STRING, description="email of user"),
+            'password': openapi.Schema(type=openapi.TYPE_STRING, description="password of user"),
+        }))
     def post(self, request):
         """
-       this method login user to system
+        this method is used to register user or save user in database
         :param request: http request to made to this api
         :return: it returns response to request that is made:
         """
