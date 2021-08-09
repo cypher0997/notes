@@ -24,17 +24,24 @@ class CreateNotes(APIView):
         :return: it returns response to request that is made
         """
         try:
+
             usr_id = request.data.get("user")
             note = NewNotes.objects.filter(user=usr_id)
+            coll = NewNotes.objects.filter(collaborator=usr_id)
+            print(coll)
             serializer = NotesGetSer(data=note, many=True)
             serializer.is_valid()
             note_sr = serializer.data
-            coll_content = CollaboratorContent.objects.all().order_by('-id')
-            coll_serializer = CollaboratorContentSer(data=coll_content, many=True)
-            coll_serializer.is_valid()
-            content_sr = coll_serializer.data
-            return Response({"data": {"note-list": note_sr},
-                             "collaborated_data": content_sr})
+            serializer = NotesGetSer(data=coll, many=True)
+            serializer.is_valid()
+            coll_sr = serializer.data
+            # coll_content = CollaboratorContent.objects.all().order_by('- id')
+            # coll_serializer = CollaboratorContentSer(data=coll_content, many=True)
+            # coll_serializer.is_valid()
+            # content_sr = coll_serializer.data
+            return Response({"data": {"note-list": note_sr,
+                                      "coll_list": coll_sr}})
+
         except ObjectDoesNotExist as e:
             return Response({"message": str(e)})
         except ValidationError as e:
@@ -42,15 +49,14 @@ class CreateNotes(APIView):
         except Exception as e:
             return Response({"message": e.args})
 
-    @swagger_auto_schema(manual_parameters=[
-        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             'title': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
             'discription': openapi.Schema(type=openapi.TYPE_STRING, description="discription of Note"),
             'label': openapi.Schema(type=openapi.TYPE_STRING, description="label of Note"),
-        }))
+        }) ,manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
     @token_decoder
     def post(self, request):
         """
@@ -86,15 +92,14 @@ class CreateNotes(APIView):
         except Exception as e:
             return Response({"message": str(e)})
 
-    @swagger_auto_schema(manual_parameters=[
-        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             'id': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
             'title': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
             'discription': openapi.Schema(type=openapi.TYPE_STRING, description="discription of Note"),
-        }))
+        }), manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING),])
     def put(self, request):
         """
         this method updates specific notes of corresponding user
@@ -116,13 +121,12 @@ class CreateNotes(APIView):
         except Exception as e:
             return Response({"message": str(e)})
 
-    @swagger_auto_schema(manual_parameters=[
-        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             'id': openapi.Schema(type=openapi.TYPE_STRING, description="title of note"),
-        }))
+        }), manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING),])
     def delete(self, request):
         """
         this method delete's specific notes of corresponding user
@@ -215,14 +219,13 @@ class NoteCollaboratorView(APIView):
 
 class CollaboratedContentView(APIView):
 
-    @swagger_auto_schema(manual_parameters=[
-        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING), ])
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
             'note_id': openapi.Schema(type=openapi.TYPE_STRING, description="id of note"),
             'content': openapi.Schema(type=openapi.TYPE_STRING, description="content of collaborator"),
-        }))
+        }), manual_parameters=[
+        openapi.Parameter('AUTHORIZATION', openapi.IN_HEADER, "token to get user id", type=openapi.TYPE_STRING),])
     @token_decoder
     def put(self, request):
         """
