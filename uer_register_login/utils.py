@@ -68,7 +68,7 @@ def register_encode_token(usr_name):
     except ExpiredSignatureError as e:
         return Response({"message": "Token Not Found or expired"}, status=404)
     except Exception as e:
-        return "something went wrong"
+        return {"message": "something went wrong"}
 
 
 def login_encode_token(temp):
@@ -81,7 +81,7 @@ def login_encode_token(temp):
     except ExpiredSignatureError as e:
         return Response({"message": "Token Not Found or expired"}, status=404)
     except Exception:
-        return "something went wrong"
+        return {"message": "something went wrong"}
 
 
 def returns_user_logger():
