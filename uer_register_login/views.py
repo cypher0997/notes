@@ -97,7 +97,7 @@ class RegisterView(APIView):
             return Response({"message": "DATA SERIALIZATION AND VALIDATION FAILED"}, status=400)
         except ValidationError as e:
             user_log.exception("data validation failed")
-            return Response(e.message)
+            return Response({"message": e.message})
         except ExpiredSignatureError as e:
             user_log.exception("token not found exception occurred")
             return Response({"message": "Token Not Found or expired"}, status=404)

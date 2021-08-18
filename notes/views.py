@@ -43,7 +43,7 @@ class CreateNotes(APIView):
             return Response({"message": str(e)})
         except ValidationError as e:
             notes_log.exception("data validation failed exception occurred")
-            return Response(e.message)
+            return Response({"message": e.message})
         except Exception as e:
             notes_log.exception("generic exception occurred")
             return Response({"message": e.args})
