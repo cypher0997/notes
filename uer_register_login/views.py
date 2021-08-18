@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 from drf_yasg.utils import swagger_auto_schema
-
+from uer_register_login.utils import user_log
 from .models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -31,6 +31,9 @@ class LoginView(APIView):
         :return: it returns response to request that is made:
         """
         try:
+            if (not request.data.get("username")) or (not request.data.get("password")):
+                user_log.error("invalid input ")
+                return Response({"message": "invalid input"})
             deserialized_data = LoginUserSerializer(data=request.data)
             deserialized_data.is_valid()
             temp = deserialized_data.data
@@ -47,12 +50,16 @@ class LoginView(APIView):
             else:
                 raise ObjectDoesNotExist
         except ObjectDoesNotExist as e:
+            user_log.exception("object not found exception occurred")
             return Response({"message": "USER NOT FOUND"}, status=404)
         except ConnectionError as e:
+            user_log.exception("redis connection exception occurred")
             return Response({"message": "Redis Connection Error"}, status=502)
         except ExpiredSignatureError as e:
+            user_log.exception("token not found exception occurred")
             return Response({"message": "Token Not Found or expired"}, status=404)
         except Exception as e:
+            user_log.exception("generic exception occurred")
             return Response({"message": "something went wrong"}, status=400)
 
 
@@ -74,6 +81,10 @@ class RegisterView(APIView):
         :return: it returns response to request that is made:
         """
         try:
+            if (not request.data.get("username")) or (not request.data.get("first_name")) or (
+                    not request.data.get("email")) or (not request.data.get("password")):
+                user_log.error("invalid input ")
+                return Response({"message": "invalid input"})
             new_usr = CustomUser(username=request.data.get("username"), first_name=request.data.get("first_name"),
                                  email=request.data.get("email"), password=request.data.get("password"))
             serializer = RegisterUserSer(new_usr)
@@ -81,14 +92,17 @@ class RegisterView(APIView):
             if deserialized_data.is_valid():
                 deserialized_data.save()
                 token = utils.register_encode_token(request.data.get("username"))
-                utils.send_email(token)
+                utils.send_email(token, request.data.get("email"))
                 return Response({"message": "VERIFY YOURSELF, CHECK EMAIL"}, status=200)
-            return Response({"message": "NOT VALID INPUT"}, status=400)
+            return Response({"message": "DATA SERIALIZATION AND VALIDATION FAILED"}, status=400)
         except ValidationError as e:
+            user_log.exception("data validation failed")
             return Response(e.message)
         except ExpiredSignatureError as e:
+            user_log.exception("token not found exception occurred")
             return Response({"message": "Token Not Found or expired"}, status=404)
         except Exception as e:
+            user_log.exception("generic exception occurred")
             return Response({"message": "something went wrong"}, status=400)
 
 
@@ -114,5 +128,6 @@ class VerifyView(APIView):
                 return Response({"message": "VERIFIED"}, status=200)
             return Response({"message": "SOME THING WENT WRONG"}, status=400)
         except Exception as e:
+            user_log.exception("generic exception occurred")
             return Response({"message": "SOMETHING WENT WRONG",
                              "detail": e.args}, status=400)

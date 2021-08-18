@@ -20,6 +20,17 @@ class RegisterUserSer(serializers.ModelSerializer):
         else:
             return value
 
+    def validate_email(self, value):
+        """
+        this method validates the deserialized data
+        :param value: email that is to be validated
+        :return: returns email for further operations
+        """
+        if CustomUser.objects.filter(email=value):
+            raise ValidationError("DUPLICATION OF RECORD")
+        else:
+            return value
+
 
 class LoginUserSerializer(serializers.ModelSerializer):
     class Meta:

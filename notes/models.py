@@ -6,7 +6,7 @@ class Label(models.Model):
     label_name = models.CharField(max_length=200)
 
 
-class NewNotes(models.Model):
+class Notes(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="notes_belong")
     title = models.CharField(max_length=200)
     discription = models.CharField(max_length=500)
@@ -23,7 +23,7 @@ class NewNotes(models.Model):
         return self.id > 0
 
 
-class CollaboratorContent(models.Model):
-    note_id = models.ForeignKey(NewNotes, on_delete=models.CASCADE, related_name="note_id")
-    collaborator_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="coll_id")
-    content = models.CharField(max_length=500)
+# class CollaboratorContent(models.Model):
+#     note_id = models.ForeignKey(NewNotes, on_delete=models.CASCADE, related_name="note_id")
+#     collaborator_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="coll_id")
+#     content = models.CharField(max_length=500)
