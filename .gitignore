@@ -1,3 +1,5 @@
+.idea
+env1/
 htmlcov/
 __pycache__/
 *.py[cod]
@@ -42,6 +44,7 @@ htmlcov/
 .tox/
 .nox/
 .coverage
+.coveragerc
 .coverage.*
 .cache
 nosetests.xml
