@@ -1,4 +1,5 @@
 .idea/
+env1/
 htmlcov/
 __pycache__/
 *.py[cod]
