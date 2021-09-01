@@ -1,5 +1,5 @@
-.idea
-env1/
+.idea/
+.scannerwork/
 htmlcov/
 __pycache__/
 *.py[cod]
@@ -26,6 +26,7 @@ pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
+sonar-project.properties.cfg
 *.egg
 MANIFEST
 
@@ -44,7 +45,6 @@ htmlcov/
 .tox/
 .nox/
 .coverage
-.coveragerc
 .coverage.*
 .cache
 nosetests.xml

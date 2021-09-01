@@ -87,6 +87,7 @@ class RegisterView(APIView):
                 return Response({"message": "invalid input"})
             new_usr = CustomUser(username=request.data.get("username"), first_name=request.data.get("first_name"),
                                  email=request.data.get("email"), password=request.data.get("password"))
+            print(new_usr)
             serializer = RegisterUserSer(new_usr)
             deserialized_data = RegisterUserSer(data=serializer.data)
             if deserialized_data.is_valid():

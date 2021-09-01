@@ -4,6 +4,9 @@ from .models import Notes, Label
 
 class NotesSer(serializers.ModelSerializer):
     # serializer class for Notes database
+    title = serializers.CharField(max_length=200, allow_blank=True)
+    description = serializers.CharField(max_length=200, allow_blank=True)
+
     class Meta:
         model = Notes
         exclude = ["label", "collaborator"]
@@ -11,17 +14,23 @@ class NotesSer(serializers.ModelSerializer):
 
 class NotesGetSer(serializers.ModelSerializer):
     # serializer class for Notes database
+
     class Meta:
         model = Notes
         fields = "__all__"
 
 
-class NotesUpdateSer(serializers.ModelSerializer):
+class NotesUpdateSer(serializers.Serializer):
     # serializer class for Notes database
     # specific serializer class for updating notes in database
-    class Meta:
-        model = Notes
-        fields = ["id", "title", "discription"]
+    title = serializers.CharField(max_length=200, allow_blank=True)
+    description = serializers.CharField(max_length=200, allow_blank=True)
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.save()
+        return instance
 
 
 class LabelSer(serializers.ModelSerializer):
@@ -31,10 +40,3 @@ class LabelSer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# class CollaboratorContentSer(serializers.ModelSerializer):
-#     # serializer class for Notes CollaboratorContent
-#     class Meta:
-#         model = CollaboratorContent
-#         fields = "__all__"
-
-    # def validate_(self, attrs):

@@ -1,9 +1,9 @@
+import json
+
 import pytest
 from django.urls import reverse
+
 from uer_register_login.models import CustomUser
-from notes.models import NewNotes
-from mixer.backend.django import mixer
-import json
 
 
 @pytest.mark.django_db
@@ -21,6 +21,7 @@ class TestNotes:
         content = json.loads(res.content)
         print(res.content)
         data = {
+            'label': "",
             'title': 'something',
             'discription': 'again_something'
         }
@@ -43,10 +44,10 @@ class TestNotes:
         content = json.loads(res.content)
         header = {"HTTP_AUTHORIZATION": content.get("data").get("token")}
         url = reverse('notes')
-        data = {
-            'user': 1,
-        }
-        res = client.post(url, data, **header)
+        # data = {
+        #     'user': 1,
+        # }
+        res = client.get(url, **header)
         assert res.status_code == 200
 
     def test_update_notes(self, client):
